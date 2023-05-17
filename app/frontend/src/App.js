@@ -1,20 +1,29 @@
-import React, { useState, Fragment } from "react";
-import AddUserForm from "./forms/AddUserForm";
-import EditUserForm from "./forms/EditUserForm";
-import UserTable from "./tables/UserTable";
+import React, { useState, Fragment, useEffect } from "react";
+import AddAttendeeForm from "./forms/AddAttendeeForm";
+import EditAttendeeForm from "./forms/EditAttendeeForm";
+import AttendeeTable from "./tables/AttendeeTable";
+import { editAttendee, addAttendee, deleteAttendee } from "./services/api";
+import "./App.css";
 
 const App = () => {
   // Data
   let attendeeData = [];
+  const [attendeeList, setAttendeeList] = useState(attendeeData);
 
-  const fetchData = async () => {
-    let response = await fetch("http://127.0.0.1:8000/");
-    let data = await response.text();
-    attendeeData = data;
-    return data;
+  const fetchData = () => {
+    fetch("http://127.0.0.1:8000/")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setAttendeeList(data);
+      });
   };
 
-  fetchData();
+  useEffect(() => {
+    console.log("effect");
+    fetchData();
+  }, []);
 
   const initialFormState = {
     name: "",
@@ -26,33 +35,44 @@ const App = () => {
   };
 
   // Setting state
-  const [attendeeList, setAttendeeList] = useState(attendeeData);
+  // const [attendeeList, setAttendeeList] = useState(attendeeData);
   const [currentAttendee, setCurrentAttendee] = useState(initialFormState);
   const [editing, setEditing] = useState(false);
 
   // CRUD operations
-  const addAttendee = (attendee) => {
-    attendee.id = attendeeList.length + 1;
+  const addAttendeeToList = (attendee) => {
+    if (
+      attendeeList.filter((a) => a.username === attendee.username).length > 0
+    ) {
+      alert("Username already exists!");
+      return;
+    }
     setAttendeeList([...attendeeList, attendee]);
+    addAttendee(attendee);
   };
 
-  const deleteAttendee = (id) => {
+  const deleteAttendeeFromList = (attendee) => {
     setEditing(false);
-
-    setAttendeeList(attendeeList.filter((attendee) => attendee.id !== id));
+    setAttendeeList(
+      attendeeList.filter((a) => a.username !== attendee.username)
+    );
+    console.log(attendee);
+    deleteAttendee(attendee);
   };
 
-  const updateAttendee = (id, updatedAttendee) => {
+  const updateAttendee = (username, updatedAttendee) => {
     setEditing(false);
 
     setAttendeeList(
       attendeeList.map((attendee) =>
-        attendee.id === id ? updatedAttendee : attendee
+        attendee.username === username ? updatedAttendee : attendee
       )
     );
+
+    editAttendee(updatedAttendee);
   };
 
-  const editRow = (attendee) => {
+  const editRow = (attendee, deleteAction) => {
     setEditing(true);
 
     setCurrentAttendee({
@@ -61,38 +81,43 @@ const App = () => {
       sex: attendee.sex,
       yearOfBirth: attendee.yearOfBirth,
       university: attendee.university,
-      major: attendee.university,
+      major: attendee.major,
     });
+
+    if (deleteAction) {
+      setEditing(false);
+      deleteAttendeeFromList(attendee);
+    }
   };
 
   return (
     <div className="container">
-      <h1>Viettel Attendees List</h1>
+      <h1 id="title">Viettel Digital Talent 2023</h1>
       <div className="flex-row">
-        <div className="flex-large">
+        <div className="edit-add-form">
           {editing ? (
             <Fragment>
               <h2>Edit user</h2>
-              <EditUserForm
+              <EditAttendeeForm
                 editing={editing}
                 setEditing={setEditing}
-                currentUser={currentAttendee}
-                updateUser={updateAttendee}
+                currentAttendee={currentAttendee}
+                updateAttendee={updateAttendee}
               />
             </Fragment>
           ) : (
             <Fragment>
-              <h2>Add user</h2>
-              <AddUserForm addUser={addAttendee} />
+              <h2>Add attendee</h2>
+              <AddAttendeeForm addAttendee={addAttendeeToList} />
             </Fragment>
           )}
         </div>
-        <div className="flex-large">
-          <h2>View users</h2>
-          <UserTable
-            users={attendeeList}
+        <div className="table-list">
+          <h2>Attendee List</h2>
+          <AttendeeTable
+            attendees={attendeeList}
+            currentAttendee={currentAttendee}
             editRow={editRow}
-            deleteUser={deleteAttendee}
           />
         </div>
       </div>

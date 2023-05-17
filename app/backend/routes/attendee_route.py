@@ -13,28 +13,28 @@ async def get_attendee_list():
     return attendee
 
 # Get attendee info with username
-@attendee_API.get("/{id}")
+@attendee_API.get("/{username}")
 async def get_attendee(username: str):
     return serializeDict(collection_name.find_one({"username": username}, {'_id': False}))
 
 
 # Add attendee
-@attendee_API.post("/")
+@attendee_API.post("/newAttendee={username}")
 async def add_attendee(attendee: Attendee):
     _id = collection_name.insert_one(dict(attendee))
     return serializeList(collection_name.find({"_id": _id.inserted_id}, {'_id': False}))
 
 
 # Edit attendee's info
-@attendee_API.put("/{id}")
-async def update_attendee(id: str, attendee: Attendee):
-    collection_name.find_one_and_update({"_id": ObjectId(id)}, {
+@attendee_API.put("/editAttendee={username}")
+async def update_attendee(username: str, attendee: Attendee):
+    collection_name.find_one_and_update({"username": username}, {
         "$set": dict(attendee)
     })
-    return serializeDict(collection_name.find({"_id": ObjectId(id)}))
+    return serializeDict(collection_name.find({"username": username}))
 
 # Delete attendee
-@attendee_API.delete("/{id}")
-async def delete_attendee(id: str):
-    collection_name.find_one_and_delete({"_id": ObjectId(id)})
+@attendee_API.delete("/deleteAttendee={username}")
+async def delete_attendee(username: str):
+    collection_name.find_one_and_delete({"username": username})
     return {"status": "ok"}
