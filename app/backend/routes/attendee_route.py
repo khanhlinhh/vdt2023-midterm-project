@@ -2,7 +2,6 @@ from fastapi import APIRouter
 from models.attendee_model import Attendee
 from config.database import collection_name
 from schemas.attendee_schema import serializeList, serializeDict
-from bson import ObjectId
 
 attendee_API = APIRouter()
 
