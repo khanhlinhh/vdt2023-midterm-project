@@ -12,7 +12,7 @@ MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
 MONGODB_DATABASE_NAME = os.getenv("MONGODB_DATABASE_NAME")
 MONGODB_COLLECTION_NAME = os.getenv("MONGODB_COLLECTION_NAME")
 
-CONNECTION_STRING = "mongodb+srv://" + MONGODB_USERNAME + ":" + MONGODB_PASSWORD + "@vdt-infodata.rop26e4.mongodb.net/?retryWrites=true&w=majority"
+CONNECTION_STRING = "mongodb://" + MONGODB_USERNAME + ":" + MONGODB_PASSWORD + "@mongo:27017/"
 client = MongoClient(CONNECTION_STRING, server_api=ServerApi('1'))
 
 dbname = client[MONGODB_DATABASE_NAME]
