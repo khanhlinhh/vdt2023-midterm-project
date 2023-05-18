@@ -1,4 +1,4 @@
-db = db.getSiblingDB("VDT2023");
+db = db.getSiblingDB("vdt-2023");
 db.attendees.drop();
 
 const data = cat("/docker-entrypoint-initdb.d/attendees.json");
