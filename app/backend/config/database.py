@@ -13,7 +13,7 @@ MONGODB_DATABASE_NAME = os.getenv("MONGODB_DATABASE_NAME")
 MONGODB_COLLECTION_NAME = os.getenv("MONGODB_COLLECTION_NAME")
 
 CONNECTION_STRING = "mongodb://" + MONGODB_USERNAME + ":" + MONGODB_PASSWORD + "@mongo:27017/"
-client = MongoClient(CONNECTION_STRING, server_api=ServerApi('1'))
+client = MongoClient(CONNECTION_STRING)
 
 dbname = client[MONGODB_DATABASE_NAME]
 collection_name = dbname[MONGODB_COLLECTION_NAME]

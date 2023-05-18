@@ -11,7 +11,7 @@ const App = () => {
   const [attendeeList, setAttendeeList] = useState(attendeeData);
 
   const fetchData = () => {
-    fetch("http://127.0.0.1:8000/")
+    fetch("http://127.0.0.1:5000/")
       .then((response) => {
         return response.json();
       })

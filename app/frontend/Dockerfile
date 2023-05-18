@@ -13,7 +13,7 @@ RUN npm run build
 
 # NGINX
 FROM nginx:1.22.0-alpine
-COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /nginx.conf /etc/nginx/conf.d/default.conf
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 COPY --from=build /app/build .

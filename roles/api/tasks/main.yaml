@@ -13,6 +13,8 @@
   community.docker.docker_container:
     name: backend
     image: "{{ IMAGE_NAME }}"
+    ports:
+      - "5000:5000"
     restart_policy: unless-stopped
     networks:
       - name: "{{ DB_NETWORK_NAME }}"
