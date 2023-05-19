@@ -21,7 +21,10 @@ async def get_attendee(username: str):
 @attendee_API.post("/newAttendee={username}")
 async def add_attendee(attendee: Attendee):
     _id = collection_name.insert_one(dict(attendee))
-    return serializeList(collection_name.find({"_id": _id.inserted_id}, {'_id': False}))
+    return {
+        "message": "Add new attendee successfully",
+        "data": serializeList(collection_name.find({"_id": _id.inserted_id}, {'_id': False}))
+    }
 
 
 # Edit attendee's info
@@ -30,10 +33,13 @@ async def update_attendee(username: str, attendee: Attendee):
     collection_name.find_one_and_update({"username": username}, {
         "$set": dict(attendee)
     })
-    return serializeDict(collection_name.find({"username": username}))
+    return {
+        "message": "Update attendee successfully",
+        "data": serializeDict(collection_name.find({"username": username}))
+    }
 
 # Delete attendee
 @attendee_API.delete("/deleteAttendee={username}")
 async def delete_attendee(username: str):
     collection_name.find_one_and_delete({"username": username})
-    return {"status": "ok"}
+    return {"message": "Delete attendee successfully"}
