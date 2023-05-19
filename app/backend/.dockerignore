@@ -18,3 +18,4 @@ tests
 scripts
 postman
 ./postgres-data
+.pytest_cache
