@@ -16,3 +16,9 @@
   become: true
   roles:
     - web
+
+- name: Set up Prometheus with Node Exporter and Cadvisor
+  hosts: all
+  become: true
+  roles:
+    - monitor
