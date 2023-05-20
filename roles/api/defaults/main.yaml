@@ -1,3 +1,4 @@
 IMAGE_NAME: backend
 DB_NETWORK_NAME: db-network
 API_NETWORK_NAME: api-network
+FLUENT_NETWORK_NAME: fluentd-network
