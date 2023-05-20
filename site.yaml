@@ -4,6 +4,12 @@
   roles:
     - common
 
+- name: Set up logstash service with Fluentd
+  hosts: all
+  become: true
+  roles:
+    - log
+
 - name: Deploy backend and mongodb database
   hosts: all
   become: true
