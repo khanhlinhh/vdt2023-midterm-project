@@ -1,7 +1,9 @@
 import axios from "axios";
 
+axios.defaults.baseURL = "http://0.0.0.0:5000";
+
 export function editAttendee(attendee) {
-  axios.put(`http://127.0.0.1:8000/editAttendee=${attendee.username}`, {
+  axios.put(`/editAttendee=${attendee.username}`, {
     name: attendee.name,
     username: attendee.username,
     sex: attendee.sex,
@@ -12,7 +14,7 @@ export function editAttendee(attendee) {
 }
 
 export function addAttendee(attendee) {
-  axios.post(`http://127.0.0.1:8000/newAttendee=${attendee.username}`, {
+  axios.post(`/newAttendee=${attendee.username}`, {
     name: attendee.name,
     username: attendee.username,
     sex: attendee.sex,
@@ -23,5 +25,5 @@ export function addAttendee(attendee) {
 }
 
 export function deleteAttendee(attendee) {
-  axios.delete(`http://127.0.0.1:8000/deleteAttendee=${attendee.username}`);
+  axios.delete(`/deleteAttendee=${attendee.username}`);
 }

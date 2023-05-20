@@ -13,5 +13,5 @@
     networks:
       - name: "{{ NETWORK_NAME }}"
     ports:
-      - "80:80"
+      - "3030:3030"
   become: yes
