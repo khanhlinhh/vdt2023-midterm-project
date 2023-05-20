@@ -1,0 +1,25 @@
+- name: Build Fluentd image
+  community.docker.docker_image:
+    name: "{{ IMAGE_NAME }}"
+    build:
+      path: ./roles/log/fluentd
+    source: build
+
+- name: Create API network
+  community.docker.docker_network:
+    name: "{{ NETWORK_NAME }}"
+
+- name: Run Fluentd container
+  community.docker.docker_container:
+    name: fluentd
+    image: "{{ IMAGE_NAME }}"
+    hostname: fluentd
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ NETWORK_NAME }}"
+    volumes:
+      - "{{ FLUENTD_VOLUME }}"
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+  become: yes
