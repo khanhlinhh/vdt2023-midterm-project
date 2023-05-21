@@ -23,7 +23,7 @@ jobs:
 
       - name: Get version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF##*/}
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/*/*/}
 
       - name: Build and push Backend Docker image
         uses: docker/build-push-action@v4
