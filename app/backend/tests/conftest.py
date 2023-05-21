@@ -24,7 +24,7 @@ def mongo_mock(monkeypatch):
 
     col.insert_one(emp_data)
 
-    def fake_db():
-        return db
+    # def fake_db():
+    #     return db
 
-    monkeypatch.setattr(config.database, "get_database", fake_db)
+    # monkeypatch.setattr(config.database, "get_database", fake_db)
