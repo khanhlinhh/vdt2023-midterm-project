@@ -1,4 +1,3 @@
-IMAGE_NAME: backend
+IMAGE_NAME: khanhlinh/backend-vdt:v0.1.0
 DB_NETWORK_NAME: db-network
 API_NETWORK_NAME: api-network
-FLUENT_NETWORK_NAME: fluentd-network

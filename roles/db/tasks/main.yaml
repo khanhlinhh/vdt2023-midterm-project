@@ -1,11 +1,15 @@
-- name: Pull MongoDB image from Docker Hub
-  community.docker.docker_image:
-    name: "{{ IMAGE_NAME }}"
-    source: pull
+- name: Check if Database network exists
+  community.docker.docker_network_info:
+    name: "{{ NETWORK_NAME }}"
+  register: db_network
+  become: true
 
 - name: Create Database network
   community.docker.docker_network:
     name: "{{ NETWORK_NAME }}"
+    state: present
+  when: db_network.exists == false
+  become: true
 
 - name: Run docker image mongo
   community.docker.docker_container:
@@ -16,7 +20,6 @@
       - "27017:27017"
     networks:
       - name: "{{ NETWORK_NAME }}"
-      - name: "{{ FLUENT_NETWORK_NAME }}"
     volumes:
       - "{{ MONGODB_VOLUME }}"
     env:

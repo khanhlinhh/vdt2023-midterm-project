@@ -4,10 +4,7 @@
     build:
       path: ./roles/log/fluentd
     source: build
-
-- name: Create API network
-  community.docker.docker_network:
-    name: "{{ NETWORK_NAME }}"
+  become: yes
 
 - name: Run Fluentd container
   community.docker.docker_container:
@@ -15,11 +12,10 @@
     image: "{{ IMAGE_NAME }}"
     hostname: fluentd
     restart_policy: unless-stopped
-    networks:
-      - name: "{{ NETWORK_NAME }}"
     volumes:
       - "{{ FLUENTD_VOLUME }}"
     ports:
       - "24224:24224"
       - "24224:24224/udp"
   tags: docker
+  become: yes

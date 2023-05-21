@@ -1,3 +1,2 @@
-IMAGE_NAME: frontend
+IMAGE_NAME: khanhlinh/frontend-vdt:v0.1.0
 NETWORK_NAME: api-network
-FLUENT_NETWORK_NAME: fluentd-network

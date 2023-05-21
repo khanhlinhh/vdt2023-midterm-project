@@ -5,26 +5,32 @@
     - common
 
 - name: Set up logstash service with Fluentd
-  hosts: all
+  hosts: localhost
   become: true
   roles:
     - log
 
+- name: Set up Load Balancer with NGINX
+  hosts: loadbalancer
+  become: true
+  roles:
+    - lb
+
 - name: Deploy backend and mongodb database
-  hosts: all
+  hosts: webapp
   become: true
   roles:
     - db
     - api
 
 - name: Deploy frontend
-  hosts: all
+  hosts: webapp
   become: true
   roles:
     - web
 
 - name: Set up Prometheus with Node Exporter and Cadvisor
-  hosts: all
+  hosts: webapp
   become: true
   roles:
     - monitor
