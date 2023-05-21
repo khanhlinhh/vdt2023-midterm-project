@@ -22,4 +22,4 @@
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-  become: yes
+  tags: docker

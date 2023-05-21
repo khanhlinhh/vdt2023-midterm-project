@@ -19,4 +19,4 @@
     log_options:
       fluentd-address: "100.115.93.99:24224"
       tag: "docker.web"
-  become: yes
+  tags: docker
