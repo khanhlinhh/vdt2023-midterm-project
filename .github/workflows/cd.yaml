@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./app/backend
-          file: ./app/backend/Dockerfile
+          # file: ./app/backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}backend-vdt:${{ steps.get_version.outputs.VERSION }}
 
@@ -38,6 +38,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./app/frontend
-          file: ./app/frontend/Dockerfile
+          # file: ./app/frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}frontend-vdt:${{ steps.get_version.outputs.VERSION }}
