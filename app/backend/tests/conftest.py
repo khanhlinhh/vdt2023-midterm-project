@@ -9,7 +9,7 @@ import config.database
 sys.path.insert(1, '/config')
 
 @pytest.fixture()
-def mongo_mock(monkeypatch):
+def mongo_mock():
     client = mongomock.MongoClient()
     db = client.get_database("vdt-test")
     col = db.get_collection("attendees-test")
