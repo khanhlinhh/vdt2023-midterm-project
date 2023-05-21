@@ -1,12 +1,6 @@
 import pytest
 import mongomock
 import sys
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import config.database
-    # caution: path[0] is reserved for script path (or '' in REPL)
-
-sys.path.insert(1, '/config')
 
 @pytest.fixture()
 def mongo_mock():
@@ -23,8 +17,3 @@ def mongo_mock():
     }
 
     col.insert_one(emp_data)
-
-    # def fake_db():
-    #     return db
-
-    # monkeypatch.setattr(config.database, "get_database", fake_db)
