@@ -24,6 +24,8 @@ jobs:
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: "5.0"
+          mongodb-username: ${{ secrets.MONGODB_USERNAME }}
+          mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
 
       - name: Install dependencies
         run: |
