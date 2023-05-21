@@ -24,6 +24,8 @@ jobs:
         uses: supercharge/mongodb-github-action@1.8.0
         with:
           mongodb-version: "5.0"
+          mongodb-username: ${{ secrets.MONGODB_USERNAME }}
+          mongodb-password: ${{ secrets.MONGODB_PASSWORD }}
 
       - name: Install dependencies
         run: |
@@ -31,6 +33,7 @@ jobs:
           cd app/backend
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install flake8 pytest pytest-cov
+
       - name: Lint with flake8
         run: |
           cd app/backend
