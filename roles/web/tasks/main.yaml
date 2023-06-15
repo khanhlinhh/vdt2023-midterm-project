@@ -12,7 +12,6 @@
     restart_policy: unless-stopped
     networks:
       - name: "{{ NETWORK_NAME }}"
-      - name: "{{ FLUENT_NETWORK_NAME }}"
     ports:
       - "3030:3030"
     log_driver: fluentd

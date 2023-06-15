@@ -16,7 +16,6 @@
       - "27017:27017"
     networks:
       - name: "{{ NETWORK_NAME }}"
-      - name: "{{ FLUENT_NETWORK_NAME }}"
     volumes:
       - "{{ MONGODB_VOLUME }}"
     env:

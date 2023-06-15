@@ -2,7 +2,12 @@ import React, { useState, Fragment, useEffect } from "react";
 import AddAttendeeForm from "./forms/AddAttendeeForm";
 import EditAttendeeForm from "./forms/EditAttendeeForm";
 import AttendeeTable from "./tables/AttendeeTable";
-import { editAttendee, addAttendee, deleteAttendee } from "./services/api";
+import {
+  editAttendee,
+  addAttendee,
+  deleteAttendee,
+  getAttendeeList,
+} from "./services/api";
 import "./App.css";
 
 const App = () => {
@@ -11,17 +16,12 @@ const App = () => {
   const [attendeeList, setAttendeeList] = useState(attendeeData);
 
   const fetchData = () => {
-    fetch("http://0.0.0.0:5000/") // "http://backend:5000/"
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setAttendeeList(data);
-      });
+    getAttendeeList().then((response) => {
+      setAttendeeList(response.data);
+    });
   };
 
   useEffect(() => {
-    console.log("effect");
     fetchData();
   }, []);
 
@@ -35,7 +35,6 @@ const App = () => {
   };
 
   // Setting state
-  // const [attendeeList, setAttendeeList] = useState(attendeeData);
   const [currentAttendee, setCurrentAttendee] = useState(initialFormState);
   const [editing, setEditing] = useState(false);
 

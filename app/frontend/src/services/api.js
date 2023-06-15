@@ -1,6 +1,11 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://0.0.0.0:5000";
+axios.defaults.baseURL = process.env.API_URL || "http://localhost:5000";
+
+export async function getAttendeeList() {
+  const response = await axios.get("/");
+  return response;
+}
 
 export function editAttendee(attendee) {
   axios.put(`/editAttendee=${attendee.username}`, {

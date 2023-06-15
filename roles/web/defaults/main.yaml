@@ -1,3 +1,2 @@
 IMAGE_NAME: frontend
 NETWORK_NAME: api-network
-FLUENT_NETWORK_NAME: fluentd-network
