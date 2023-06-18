@@ -1,0 +1,1 @@
+echo "REACT_APP_API_URL=$(echo $REACT_APP_API_URL)" > ./.env
