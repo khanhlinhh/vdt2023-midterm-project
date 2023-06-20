@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL =
-  process.env.REACT_APP_API_URL || "http://localhost:5000";
+  window._env_.REACT_APP_API_URL || "http://localhost:5000";
 
 export async function getAttendeeList() {
   const response = await axios.get("/");
